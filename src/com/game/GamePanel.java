@@ -42,6 +42,6 @@ class GamePanel extends JPanel {
 
 	List<Cell> getCells() {
 
-		return this.cells;
+		return cells;
 	}
 }

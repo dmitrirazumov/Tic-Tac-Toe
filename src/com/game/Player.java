@@ -32,16 +32,16 @@ class Player {
 	void acquire(Cell cell) {
 
 		cell.checkBy(this);
-		this.cellsAcquired.add(cell);
+		cellsAcquired.add(cell);
 	}
 
 	void clearCell() {
 
-		this.cellsAcquired.clear();
+		cellsAcquired.clear();
 	}
 
 	boolean possess(Cell cell) {
 
-		return this.cellsAcquired.contains(cell);
+		return cellsAcquired.contains(cell);
 	}
 }

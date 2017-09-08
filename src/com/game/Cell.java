@@ -19,11 +19,11 @@ public class Cell extends JButton {
 
 		super();
 		setBackground(Color.WHITE);
-		this.positionX = x;
-		this.positionY = y;
-		this.free = true;
+		positionX = x;
+		positionY = y;
+		free = true;
 		this.clickListeners = new ArrayList<>(clickListeners);
-		this.clickListeners.forEach(this::addActionListener);
+		this.clickListeners.forEach(e -> addActionListener(e));
 	}
 
 	int getPositionX() {
@@ -40,23 +40,24 @@ public class Cell extends JButton {
 
 		if (free) {
 
-			this.clickListeners.forEach(this::removeActionListener);
+			this.clickListeners.forEach(e -> removeActionListener(e));
 		} else {
 
-			this.setBorderPainted(true);
-			this.setFocusPainted(true);
+			setBorderPainted(true);
+			setFocusPainted(true);
 		}
 
 		this.clickListeners = new ArrayList<>(clickListeners);
-		this.clickListeners.forEach(this::addActionListener);
-		this.image = null;
-		this.free = true;
+		this.clickListeners.forEach(e -> addActionListener(e));
+		image = null;
+		free = true;
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
+
 		if (image == null) {
 
 			return;
@@ -67,20 +68,20 @@ public class Cell extends JButton {
 
 	private void disableCell() {
 
-		this.clickListeners.forEach(this::removeActionListener);
-		this.setBorderPainted(false);
-		this.setFocusPainted(false);
+		clickListeners.forEach(e -> removeActionListener(e));
+		setBorderPainted(false);
+		setFocusPainted(false);
 	}
 
 	void checkBy(Player currentPlayer) {
 
 		disableCell();
-		this.image = currentPlayer.getImage();
-		this.free = false;
+		image = currentPlayer.getImage();
+		free = false;
 	}
 
 	boolean isFree() {
 
-		return this.free;
+		return free;
 	}
 }

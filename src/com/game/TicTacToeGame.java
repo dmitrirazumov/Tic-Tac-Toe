@@ -46,7 +46,7 @@ class TicTacToeGame {
 		if (JOptionPane.showConfirmDialog(frame, winningPlayer.getName() + " win, do you want to restart game?", "Tic-tac-toe",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-			this.restart();
+			restart();
 
 		} else {
 
@@ -59,7 +59,7 @@ class TicTacToeGame {
 		if (JOptionPane.showConfirmDialog(null, "Draw, do you want to restart game?", "Tic-tac-toe",
 				JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-			this.restart();
+			restart();
 
 		} else {
 
@@ -133,20 +133,20 @@ class TicTacToeGame {
 
 	private void oneByOneSetup() {
 
-		this.clickListeners.clear();
-		this.clickListeners.add(this::checkEndGameOrNext);
-		this.clickListeners.add(this::cellClicked);
+		clickListeners.clear();
+		clickListeners.add(e -> checkEndGameOrNext(e));
+		clickListeners.add(e -> cellClicked(e));
 
-		this.allPlayers.clear();
-		this.allPlayers.addAll(humanPlayers);
+		allPlayers.clear();
+		allPlayers.addAll(humanPlayers);
 	}
 
 	private void aiSetup() {
 
 		clickListeners.clear();
-		clickListeners.add(this::aITurn);
-		clickListeners.add(this::checkEndGameOrNext);
-		clickListeners.add(this::cellClicked);
+		clickListeners.add(e -> aITurn(e));
+		clickListeners.add(e -> checkEndGameOrNext(e));
+		clickListeners.add(e -> cellClicked(e));
 
 		allPlayers.clear();
 		allPlayers.add(humanPlayers.get(0));
@@ -157,15 +157,15 @@ class TicTacToeGame {
 
 		this.size = size;
 
-		this.humanPlayers = new ArrayList<>();
-		this.aiPlayer = new Player("AI", new ImageIcon("zero.png").getImage());
+		humanPlayers = new ArrayList<>();
+		aiPlayer = new Player("AI", new ImageIcon("zero.png").getImage());
 
-		this.humanPlayers.add(new Player("Player 1", new ImageIcon("cross.png").getImage()));
-		this.humanPlayers.add(new Player("Player 2", new ImageIcon("zero.png").getImage()));
+		humanPlayers.add(new Player("Player 1", new ImageIcon("cross.png").getImage()));
+		humanPlayers.add(new Player("Player 2", new ImageIcon("zero.png").getImage()));
 
-		this.clickListeners = new ArrayList<>();
+		clickListeners = new ArrayList<>();
 
-		this.allPlayers = new ArrayList<>();
+		allPlayers = new ArrayList<>();
 
 		currentMode = () -> oneByOneSetup();
 		currentMode.run();
@@ -173,8 +173,8 @@ class TicTacToeGame {
 
 		final JMenuBar menuBar = createMenu();
 
-		this.gamePanel = createGamePanel(size, clickListeners);
-		this.frame = createFrame(menuBar, gamePanel);
+		gamePanel = createGamePanel(size, clickListeners);
+		frame = createFrame(menuBar, gamePanel);
 
 		frame.setVisible(true);
 	}
@@ -212,7 +212,7 @@ class TicTacToeGame {
 		gameMenu.add(exit);
 
 		final JMenuItem restart = new JMenuItem("Restart");
-		restart.addActionListener(e -> this.restart());
+		restart.addActionListener(e -> restart());
 
 		menuBar.add(gameMenu);
 		menuBar.add(restart);
@@ -253,20 +253,20 @@ class TicTacToeGame {
 
 	private void restart() {
 
-		this.currentMode.run();
+		currentMode.run();
 		reloadBoard();
 		reloadPlayers();
 	}
 
 	private void reloadPlayers() {
 
-		this.turn = 0;
-		this.allPlayers.forEach(Player::clearCell);
+		turn = 0;
+		allPlayers.forEach(Player::clearCell);
     }
 
 	private void reloadBoard() {
 
-		this.gamePanel.reset(clickListeners);
+		gamePanel.reset(clickListeners);
 	}
 
 	private void aITurn(ActionEvent e) {
@@ -274,15 +274,15 @@ class TicTacToeGame {
 		if (getCurrentPlayer().equals(aiPlayer)) {
 
             final Random random = new Random();
-			final List<Cell> freeCells = this.gamePanel.getCells().stream().filter(Cell::isFree).collect(Collectors.toList()); //преобразование стрима в коллекцию
+			final List<Cell> freeCells = gamePanel.getCells().stream().filter(Cell::isFree).collect(Collectors.toList());
 			final OptionalInt freeCellIndex = random.ints(1, 0, freeCells.size()).findAny();
 
 			if (freeCellIndex.isPresent()) {
 
 				final Cell cell = freeCells.get(freeCellIndex.getAsInt());
 				final ActionEvent aiClick = new ActionEvent(cell, 0, null);
-				this.cellClicked(aiClick);
-				this.checkEndGameOrNext(aiClick);
+				cellClicked(aiClick);
+				checkEndGameOrNext(aiClick);
 			}
 		}
 	}
