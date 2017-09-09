@@ -30,14 +30,21 @@ class GamePanel extends JPanel {
 		return boardCells[x][y];
 	}
 
-	void reset(List<ActionListener> clickListeners) {
+	void reset(List<ActionListener> clickListeners) { //сброс ячеек
 
-		cells.forEach(c -> c.reset(clickListeners));
+		for (Cell c : cells) {
+			c.reset(clickListeners);
+		}
 	}
 
 	boolean boardIsFull() {
 
-		return cells.stream().noneMatch(Cell::isFree);
+		for (Cell cell : cells) {
+			if (cell.isFree()) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	List<Cell> getCells() {

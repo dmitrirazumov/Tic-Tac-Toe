@@ -9,7 +9,7 @@ class Player {
 
 	private String name;
 	private Image sign;
-	private final Set<Cell> cellsAcquired;
+	private final Set<Cell> cellsAcquired; //ячейки, на которые кликнули. они больше не свободны
 
 	Player(String name, Image sign) {
 

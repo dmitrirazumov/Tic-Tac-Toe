@@ -14,7 +14,7 @@ class TicTacToeGame {
 
     private final JFrame frame;
 
-    private final List<ActionListener> clickListeners;
+    private final List<ActionListener> clickListeners; //слушатели. они выполняются при нажатии на ячейку
     private final List<Player> humanPlayers;
     private final Player aiPlayer;
     private final List<Player> allPlayers;
@@ -254,10 +254,12 @@ class TicTacToeGame {
         reloadPlayers();
     }
 
-    private void reloadPlayers() {
+    private void reloadPlayers() { //чистятся клетки, которыми обладают игроки
 
         turn = 0;
-        allPlayers.forEach(Player::clearCell);
+        for (Player allPlayer : allPlayers) {
+            allPlayer.clearCell();
+        }
     }
 
     private void reloadBoard() {
@@ -271,7 +273,7 @@ class TicTacToeGame {
 
             final Random random = new Random();
             /*
-            все ячейки закидываются в стрим -> отбираются толлько свободные -> представдение результата в виде коллекции
+            все ячейки закидываются в стрим -> отбираются только свободные -> представдение результата в виде коллекции
             */
             final List<Cell> freeCells = gamePanel.getCells().stream().filter(Cell::isFree).collect(Collectors.toList());
             final OptionalInt freeCellIndex = random.ints(1, 0, freeCells.size()).findAny();

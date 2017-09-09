@@ -26,6 +26,13 @@ public class Cell extends JButton {
 		this.clickListeners.forEach(e -> addActionListener(e));
 	}
 
+	/*
+	for(int i=0; i < this.clickListeners.size(); i++){
+	ActionListener action = clickListeners.get(i);
+	this.addActionLitesner(action);
+	 }
+	 */
+
 	int getPositionX() {
 
 		return positionX;
