@@ -8,20 +8,20 @@ import java.util.Set;
 class Player {
 
 	private String name;
-	private Image image;
+	private Image sign;
 	private final Set<Cell> cellsAcquired;
 
-	Player(String name, Image image) {
+	Player(String name, Image sign) {
 
 		super();
 		this.name = name;
-		this.image = image;
+		this.sign = sign;
 		this.cellsAcquired = new HashSet<>();
 	}
 
-	Image getImage() {
+	Image getSign() {
 
-		return image;
+		return sign;
 	}
 
 	String getName() {

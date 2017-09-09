@@ -69,7 +69,7 @@ public class Cell extends JButton {
 	void checkBy(Player currentPlayer) {
 
 		disableCell();
-		image = currentPlayer.getImage();
+		image = currentPlayer.getSign();
 		free = false;
 	}
 
