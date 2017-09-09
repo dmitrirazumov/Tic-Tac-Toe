@@ -37,7 +37,7 @@ class GamePanel extends JPanel {
 
 	boolean boardIsFull() {
 
-		return getCells().stream().noneMatch(Cell::isFree);
+		return cells.stream().noneMatch(Cell::isFree);
 	}
 
 	List<Cell> getCells() {

@@ -41,11 +41,9 @@ public class Cell extends JButton {
 		if (free) {
 
 			this.clickListeners.forEach(e -> removeActionListener(e));
-		} else {
 
-			setBorderPainted(true);
-			setFocusPainted(true);
-		}
+		} else setEnabled(true);
+
 
 		this.clickListeners = new ArrayList<>(clickListeners);
 		this.clickListeners.forEach(e -> addActionListener(e));
@@ -55,22 +53,17 @@ public class Cell extends JButton {
 
 	@Override
 	protected void paintComponent(Graphics g) {
-
 		super.paintComponent(g);
 
-		if (image == null) {
+		if (image == null) return;
 
-			return;
-		}
-
-		g.drawImage(image, 0, 0, getWidth(), getHeight(), this);
+		g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 	}
 
 	private void disableCell() {
 
 		clickListeners.forEach(e -> removeActionListener(e));
-		setBorderPainted(false);
-		setFocusPainted(false);
+		setEnabled(false);
 	}
 
 	void checkBy(Player currentPlayer) {
